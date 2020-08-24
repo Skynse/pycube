@@ -6,9 +6,9 @@ from OpenGL.GLUT import *
 
 class Cube(pyglet.window.Window):
     xRotation = yRotation = 30 
-
+    x = y = 0
     def __init__(self, width, height, title=''):
-        super(Cube, self).__init__(width, height, title)
+        super(Cube, self).__init__(width, height, title, True)
         glClearColor(0, 0, 0, 1)
         glEnable(GL_DEPTH_TEST)  
         
@@ -25,18 +25,61 @@ class Cube(pyglet.window.Window):
         glColor3ub(255, 255, 255)
         glVertex3f(50,50,50)
 
-        glColor3ub(255, 255, 0)
+        glColor3ub(255, 255, 255)
         glVertex3f(50,-50,50)
 
-        glColor3ub(255, 0, 0)
+        glColor3ub(255, 255, 255)
         glVertex3f(-50,-50,50)
         glVertex3f(-50,50,50)
 
         glColor3f(0, 0, 1)
         glVertex3f(-50,50,-50)
-
         glEnd()
 
+        #Side 2
+        glBegin(GL_QUADS)
+        glColor3ub(255,30 ,0)
+        glVertex3f(50, 50, 150)
+
+        glColor3ub(255, 50, 50)
+        glVertex3f(50, -50, 150)    
+        glColor3ub(255, 0, 0)
+        glVertex3f(-50, -50, 150)
+        glVertex3f(-50, 50, 150)
+
+        glColor3f(0,0,1)
+        glVertex3f(-50, 50, -150)
+
+        glEnd()
+        
+        #top
+        glBegin(GL_QUADS)
+        glColor3ub(255,255 ,255)
+        glVertex3f(50, 50, 50)
+
+        glColor3ub(255, 50, 50)
+        glVertex3f(50, 50, 150)#DO NOT TOUCH    
+       
+        glColor3ub(255, 0, 0)
+        glVertex3f(-50, 50, 150)
+        glVertex3f(-50, 50, 50)# important
+
+        glColor3f(0,0,1)
+        #glVertex3f(150, 150, 150)
+        glEnd()
+        
+        #bottom (x,y,z)
+        glBegin(GL_QUADS)
+        glColor3ub(255,255,255)
+        glVertex3f(50, -50, 50)# dont touch lol
+
+        glColor3ub(0,255,255)
+        glVertex3f(50, -50, 150)
+
+        glColor3ub(0,255,255)
+        glVertex3f(-50,-50, 150)
+        glVertex3f(-50, -50, 50)
+        glEnd()
         # Pop Matrix off stack
         glPopMatrix()
 
@@ -49,10 +92,11 @@ class Cube(pyglet.window.Window):
             self.yRotation -= 5
         elif motion == key.RIGHT:
             self.yRotation += 5
+            self.x += 5
     
     def on_resize(self, width, height):
-       # set the Viewport
-       glViewport(0, 0, width, height)
+        # set the Viewport
+       glViewport(self.x, self.y, width, height)
 
        # using Projection mode
        glMatrixMode(GL_PROJECTION)
@@ -63,7 +107,7 @@ class Cube(pyglet.window.Window):
 
        glMatrixMode(GL_MODELVIEW)
        glLoadIdentity()
-       glTranslatef(0, 0, -400)
+       glTranslatef(0, 0, -500)
 
     def run(self):
         pyglet.app.run()
