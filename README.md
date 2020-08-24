@@ -3,11 +3,13 @@
 Use the arrow keys to move the viewport around
 # How to run
 
+`pip install -r requirements.txt`
+
 `py pycube`
 
 OR
 
-`make run`
+`make install` and `make run`
 
 ## warning
 
