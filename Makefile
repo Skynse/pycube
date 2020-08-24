@@ -1,3 +1,3 @@
 run:
-	python3 pycube/main.py
+	python3 pycube/
 
